@@ -2,20 +2,22 @@
   <div class="row  no-gutters align-items-center abbot-main" id="calculator">
     <div class="col-lg-6" style="padding-top: 0px!important;padding: 10%;">
         <div class="lgrid-agileits row">
-            <h4>Calculate Income Tax</h4>
-                <div class="col">
-                    <label>Tax Year</label><br/>
-                    <select class="tax-year-select">
-                        <option *ngFor="let year of years" [value]="year"> 
-                            {{ year.value }}
-                        </option>
-                    </select>
-                </div>
-                <div class="col">
-                    <br/>
-                    <label>Enter your monthly income</label>
-                    <input (keypress)="numberOnly($event)" (keyup)="calculateTax($event)" ng-model="income" type="text" class="tax-field">
-                </div>
+            <form>
+                <h4>Calculate Income Tax</h4>
+                    <div class="col">
+                        <label>Tax Year</label><br/>
+                        <select class="tax-year-select" id="current_year" #year_select (change)='loadYearlyData(year_select.value)'>
+                            <option *ngFor="let year of years" [value]="year.id"> 
+                                {{ year.name }}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <br/>
+                        <label>Enter your monthly income</label>
+                        <input (keypress)="numberOnly($event)" (keyup)="calculateTax($event)" ng-model="income" type="text" class="tax-field">
+                    </div>
+            </form>
           </div>
     </div>
     <div class="col-lg-6">
@@ -25,7 +27,7 @@
                     <div class="" style="margin-left: 10px;">
                         <div id="monthly_title" class="title-section py-lg-5 pb-4">
                             <h4></h4>
-                            <h3 class="w3ls-title text-uppercase text-white"></h3>
+                            <h3 class="w3ls-title text-uppercase">{{ tax_year }}</h3>
                         </div>
                         <div class="wthree-list-grid d-flex flex-wrap">
                             <div class="wthree-list-desc">
@@ -71,7 +73,7 @@
     <div class="container pt-lg-5">
         <div class="title-section">
             
-            <h3 class="w3ls-title text-uppercase"><h4 data-blast="color">Income</h4> Tax Slabs</h3>
+            <h3 class="w3ls-title text-uppercase"><h4 data-blast="color">Income</h4> Tax Slabs - {{ tax_year }}</h3>
         </div>
         <div class="agileits-top-row row py-md-4">
             <div class="col-lg-12 col-md-12 my-md-0 my-4">

@@ -1,0 +1,161 @@
+  <!-- services -->
+  <div class="row  no-gutters align-items-center abbot-main" id="calculator">
+    <div class="col-lg-6" style="padding-top: 0px!important;padding: 10%;">
+        <div class="lgrid-agileits row">
+            <h4>Calculate Income Tax</h4>
+                <div class="col">
+                    <label>Tax Year</label><br/>
+                    <select class="tax-year-select">
+                        <option *ngFor="let year of years" [value]="year"> 
+                            {{ year.value }}
+                        </option>
+                    </select>
+                </div>
+                <div class="col">
+                    <br/>
+                    <label>Enter your monthly income</label>
+                    <input (keypress)="numberOnly($event)" (keyup)="calculateTax($event)" ng-model="income" type="text" class="tax-field">
+                </div>
+          </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="about-grid">
+            <div class="container">
+                <div class="">
+                    <div class="" style="margin-left: 10px;">
+                        <div id="monthly_title" class="title-section py-lg-5 pb-4">
+                            <h4></h4>
+                            <h3 class="w3ls-title text-uppercase text-white"></h3>
+                        </div>
+                        <div class="wthree-list-grid d-flex flex-wrap">
+                            <div class="wthree-list-desc">
+                                <table class="cal-table">
+                                    <tbody>
+                                        <tr>
+                                            <td style="width: 300px;"><h5>Monthly Income</h5></td>
+                                            <td><h4>{{ monthly_income | currency: '' : '' : '0.0-2'}}</h4></td>
+                                        </tr>
+                                        <tr>
+                                            <td><h5>Monthly Tax</h5></td>
+                                            <td><h4>{{ monthly_tax | currency: '' : '' : '0.0-2'}}</h4></td>
+                                        </tr>
+                                        <tr>
+                                            <td><h5>Monthy Income After Tax</h5></td>
+                                            <td><h4>{{ monthly_income_after_tax | currency: '' : '' : '0.0-2'}}</h4></td>
+                                        </tr>
+                                        <tr>
+                                            <td><h5>Yearly Income</h5></td>
+                                            <td><h4>{{ yearly_income | currency: '' : '' : '0.0-2'}}</h4></td>
+                                        </tr>
+                                        <tr>
+                                            <td><h5>Yearly Tax</h5></td>
+                                            <td><h4>{{ yearly_tax | currency: '' : '' : '0.0-2'}}</h4></td>
+                                        </tr>
+                                        <tr>
+                                            <td><h5>Yearly Income After Tax</h5></td>
+                                            <td><h4>{{ yearly_income_after_tax | currency: '' : '' : '0.0-2' }}</h4></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+  <!-- //services -->
+<!-- about -->
+<section class="wthree-row py-sm-5 py-4 about-top" id="tax-slabs">
+    <div class="container pt-lg-5">
+        <div class="title-section">
+            
+            <h3 class="w3ls-title text-uppercase"><h4 data-blast="color">Income</h4> Tax Slabs</h3>
+        </div>
+        <div class="agileits-top-row row py-md-4">
+            <div class="col-lg-12 col-md-12 my-md-0 my-4">
+                <table class="tax-slabs-table">
+                    <thead>
+                        <th colspan="3">Yearly Income Criteria</th>
+                        <th>Tax Rate</th>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let slab of slabs">
+                            <td>
+                                {{ slab.id }}
+                            </td>
+                            <td>
+                                <span *ngIf="slab.min_amount!='0'; else minNullTemplate">
+                                    Income exceeds <b>{{ slab.min_amount | currency: 'Rs. ' : 'symbol' : '0.0-2'}}</b>
+                                </span>
+                                <ng-template #minNullTemplate>
+                                    <span>-</span>
+                                </ng-template>
+                            </td>
+                            <td>
+                                <span *ngIf="slab.max_amount!='0'; else maxNullTemplate">
+                                    Income less than  <b>{{ slab.max_amount | currency: 'Rs. ' : 'symbol' : '0.0-2'}}</b>
+                                </span>
+                                <ng-template #maxNullTemplate>
+                                    <span>-</span>
+                                </ng-template>
+                            </td>
+                            <td>
+                                <span *ngIf="slab.tax_percent!='0'; else taxNullTemplate">
+                                    <span *ngIf="slab.fix_tax_amount!='0'">
+                                    <b>{{ slab.fix_tax_amount | currency: 'Rs. ' : 'symbol' : '0.0-2'}}</b> + 
+                                    </span>
+                                    <b>{{ slab.tax_percent }}%</b>
+                                    of the amount exceeding <b>{{ slab.min_amount | currency: 'Rs. ' : 'symbol' : '0.0-2'}}</b>
+                                </span>
+                                <ng-template #taxNullTemplate>
+                                    <span>0%</span>
+                                </ng-template>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+  </section>
+  <!-- //about -->
+
+  <!-- contact -->
+  <section class="wthree-row  w3-contact" id="contact">
+    <div class="container py-5">
+        <div class="title-section py-lg-5 text-center">
+            <h4>any question?</h4>
+            <h3 class="w3ls-title text-uppercase">contact us</h3>
+        </div>
+        <div class="row contact-form pt-5">
+            <div class="offset-lg-2"></div>
+            <div class="col-lg-8 wthree-form-left">
+                <!-- contact form grid -->
+                <fieldset class="contact-top1" data-blast="borderColor">
+                    <legend class="text-dark mb-4 text-capitalize" data-blast="bgColor">send us a
+                        note</legend>
+                    <form action="#" method="get" class="f-color">
+                        <div class="form-group">
+                            <label for="contactusername">Name</label>
+                            <input type="text" class="form-control" id="contactusername" required placeholder="Enter your name">
+                        </div>
+                        <div class="form-group">
+                            <label for="contactemail">Email</label>
+                            <input type="email" class="form-control" id="contactemail" required placeholder="Enter your Email">
+                        </div>
+                        <div class="form-group">
+                            <label for="contactcomment">Your Message</label>
+                            <textarea class="form-control" rows="5" id="contactcomment" required placeholder="your message"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">Send</button>
+                    </form>
+                </fieldset>
+                <!--  //contact form grid ends here -->
+            </div>
+            <div class="offset-lg-2"></div>
+        </div>
+    </div>
+  </section>
+  <!-- //contact -->
